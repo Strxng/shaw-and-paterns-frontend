@@ -1,4 +1,5 @@
 import { Header } from './components/header';
+import { SafeArea } from './components/safeArea';
 
 interface DefaultPageStructureProps {
   children: JSX.Element;
@@ -10,7 +11,7 @@ export const DefaultPageStructure = ({
   return (
     <>
       <Header />
-      {children}
+      <SafeArea>{children}</SafeArea>
     </>
   );
 };
