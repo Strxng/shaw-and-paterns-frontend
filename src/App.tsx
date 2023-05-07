@@ -3,6 +3,11 @@ import { ThemeProvider } from '@mui/material';
 import { DefaultPageStructure } from 'components/page/defaultPageStructure';
 import { Navigation } from 'routes';
 
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 const theme = createTheme({
   palette: {
     primary: {
