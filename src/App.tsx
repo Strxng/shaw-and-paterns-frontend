@@ -1,7 +1,22 @@
-import React from 'react';
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material';
+import { DefaultPageStructure } from 'components/page/defaultPageStructure';
+import { Navigation } from 'routes';
 
-function App() {
-  return <div>testando</div>;
-}
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#795fcd',
+    },
+  },
+});
 
-export default App;
+export const App = (): JSX.Element => {
+  return (
+    <ThemeProvider theme={theme}>
+      <DefaultPageStructure>
+        <Navigation />
+      </DefaultPageStructure>
+    </ThemeProvider>
+  );
+};
