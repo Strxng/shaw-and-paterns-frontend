@@ -2,20 +2,20 @@ import { Avatar, Container, Paper, Typography } from '@mui/material';
 
 interface UserCardProps {
   id: number;
-  name: string;
+  login: string;
   image: string;
 }
 
 export const UserCard = ({
   id = 0,
-  name = '',
+  login = '',
   image = '',
 }: UserCardProps): JSX.Element => {
   return (
     <Paper
       variant="elevation"
       elevation={2}
-      sx={{ p: 3, alignItems: 'center' }}
+      sx={{ p: 3, mb: 3, alignItems: 'center' }}
     >
       <Container
         sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}
@@ -24,7 +24,7 @@ export const UserCard = ({
           {id.toString()}
         </Avatar>
         <Typography color={'text.primary'} sx={{ ml: 2, flexGrow: 1 }}>
-          {name}
+          {login}
         </Typography>
 
         <Avatar alt="User Image" src={image} />

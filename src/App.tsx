@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material';
 import { DefaultPageStructure } from 'components/page/defaultPageStructure';
 import { Navigation } from 'routes';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -20,12 +21,16 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 export const App = (): JSX.Element => {
   return (
-    <ThemeProvider theme={theme}>
-      <DefaultPageStructure>
-        <Navigation />
-      </DefaultPageStructure>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <DefaultPageStructure>
+          <Navigation />
+        </DefaultPageStructure>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 };
