@@ -15,6 +15,8 @@ interface Pagination {
 
 interface User {
   id: number;
+  html_url: string;
+  created_at: string;
   name: string;
   bio: string;
   login: string;
@@ -26,12 +28,14 @@ interface GetAllUsersResponse {
   pagination: Pagination;
 }
 
-export const getAllUsers = async (
-  url?: string,
+export const getAllUsers = async (): Promise<GetAllUsersResponse> => {
+  return get<GetAllUsersResponse>(`${process.env.REACT_APP_API_URL}/users`);
+};
+
+export const getAllUsersWithPagination = async (
+  url: string,
 ): Promise<GetAllUsersResponse> => {
-  return get<GetAllUsersResponse>(
-    url ? url : `${process.env.REACT_APP_API_URL}/users`,
-  );
+  return get<GetAllUsersResponse>(url);
 };
 
 export const getUserDetails = async (username: string): Promise<User> => {

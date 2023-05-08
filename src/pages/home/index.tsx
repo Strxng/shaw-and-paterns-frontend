@@ -1,22 +1,19 @@
 import { Box, Typography, Button } from '@mui/material';
 import { UserCard } from './components/userCard';
-import { getAllUsers } from 'services/userService';
+import { getAllUsers, getAllUsersWithPagination } from 'services/userService';
 import { useQuery } from 'react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
-import { useToast } from 'hooks/useToast';
 
 export const HomePage = (): JSX.Element => {
   const [url, setUrl] = useState<string | undefined>(undefined);
-  const { notifyError } = useToast();
   const navigate = useNavigate();
 
   const { data, refetch, isFetching, isLoading } = useQuery(
     ['users', url],
-    () => getAllUsers(url),
-    { onError: (err: Error) => notifyError(err.message) },
+    () => (url ? getAllUsersWithPagination(url) : getAllUsers()),
   );
 
   const users = data?.users || [];

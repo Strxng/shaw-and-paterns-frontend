@@ -8,6 +8,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Toast } from 'components/toast';
+import { BrowserRouter } from 'react-router-dom';
+import { DefaultPageStructure } from 'components/page/defaultPageStructure';
+import { notifyError } from 'utils/toast';
 
 const theme = createTheme({
   palette: {
@@ -21,14 +24,27 @@ const theme = createTheme({
   },
 });
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      onError: (err: unknown) => notifyError((err as Error).message),
+    },
+  },
+});
 
 export const App = (): JSX.Element => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-        <Toast />
-        <Navigation />
+        <BrowserRouter>
+          <DefaultPageStructure>
+            <>
+              <Toast />
+              <Navigation />
+            </>
+          </DefaultPageStructure>
+        </BrowserRouter>
       </ThemeProvider>
     </QueryClientProvider>
   );
