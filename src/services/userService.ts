@@ -30,14 +30,18 @@ export const getAllUsers = async (
   url?: string,
 ): Promise<GetAllUsersResponse> => {
   return get<GetAllUsersResponse>(
-    url ? url : 'http://localhost:3000/api/users',
+    url ? url : `${process.env.REACT_APP_API_URL}/users`,
   );
 };
 
 export const getUserDetails = async (username: string): Promise<User> => {
-  return get<User>(`http://localhost:3000/api/users/${username}/details`);
+  return get<User>(
+    `${process.env.REACT_APP_API_URL}/users/${username}/details`,
+  );
 };
 
 export const getUserRepos = async (username: string): Promise<Repo[]> => {
-  return get<Repo[]>(`http://localhost:3000/api/users/${username}/repos`);
+  return get<Repo[]>(
+    `${process.env.REACT_APP_API_URL}/users/${username}/repos`,
+  );
 };
