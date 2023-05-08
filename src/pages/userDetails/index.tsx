@@ -5,21 +5,27 @@ import { getUserDetails, getUserRepos } from 'services/userService';
 import { RepoCard } from './components/repoCard';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useToast } from 'hooks/useToast';
 
 export const UserDetails = (): JSX.Element => {
   const { username } = useParams();
+  const { notifyError } = useToast();
 
   const {
     data: userDetails,
     isFetching: isFetchingUser,
     isLoading: isLoadingUser,
-  } = useQuery(['user-detail', username], () => getUserDetails(username!));
+  } = useQuery(['user-detail', username], () => getUserDetails(username!), {
+    onError: (err: Error) => notifyError(err.message),
+  });
 
   const {
     data: userRepos,
     isFetching: isFetchingRepos,
     isLoading: isLoadingRepos,
-  } = useQuery(['user-repos', username], () => getUserRepos(username!));
+  } = useQuery(['user-repos', username], () => getUserRepos(username!), {
+    onError: (err: Error) => notifyError(err.message),
+  });
 
   const renderUserProfile = (): JSX.Element => {
     if (isFetchingUser || isLoadingUser) {

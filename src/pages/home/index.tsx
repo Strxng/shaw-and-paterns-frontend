@@ -6,14 +6,17 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
+import { useToast } from 'hooks/useToast';
 
 export const HomePage = (): JSX.Element => {
   const [url, setUrl] = useState<string | undefined>(undefined);
+  const { notifyError } = useToast();
   const navigate = useNavigate();
 
   const { data, refetch, isFetching, isLoading } = useQuery(
     ['users', url],
     () => getAllUsers(url),
+    { onError: (err: Error) => notifyError(err.message) },
   );
 
   const users = data?.users || [];
