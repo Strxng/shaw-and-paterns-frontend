@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getUserDetails, getUserRepos } from 'services/userService';
@@ -46,15 +46,22 @@ export const UserDetails = (): JSX.Element => {
   return (
     <Grid container spacing={4}>
       <Grid item xs={12} lg={4}>
-        <UserDetailCard
-          name={userDetails?.name || ''}
-          bio={userDetails?.bio || ''}
-          createdAt={userDetails?.created_at || ''}
-          image={userDetails?.avatar_url || ''}
-          isLoading={isFetchingUser || isLoadingUser}
-          profileLink={userDetails?.html_url || ''}
-          username={userDetails?.login || ''}
-        />
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <UserDetailCard
+            name={userDetails?.name || ''}
+            bio={userDetails?.bio || ''}
+            createdAt={userDetails?.created_at || ''}
+            image={userDetails?.avatar_url || ''}
+            isLoading={isFetchingUser || isLoadingUser}
+            profileLink={userDetails?.html_url || ''}
+            username={userDetails?.login || ''}
+          />
+        </Box>
       </Grid>
       <Grid item xs={12} lg={8}>
         {renderUserRepos()}
